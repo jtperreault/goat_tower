@@ -2,9 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Game, type: :model do
   describe "is invalid" do
-    it "without a player"
-    it "without a level"
-    it "with more than 1 active game"
+    let!(:player) { create(:player) }
+    let!(:game)   { create(:game, player: player) }
+
+    it "without a player" do
+      expect(build(:game, player: nil)).to be_invalid
+    end
+
+    it "without a level" do
+      expect(build(:game, level: nil)).to be_invalid
+    end
+
+    it "with more than 1 active game per player" do
+      expect(build(:game, player: player)).to be_invalid
+    end
   end
 
   describe "becomes inactive" do
