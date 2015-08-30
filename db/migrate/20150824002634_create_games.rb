@@ -3,6 +3,7 @@ class CreateGames < ActiveRecord::Migration
     create_table :games do |t|
       t.references :player, index: true, foreign_key: true
       t.references :level,  index: true, foreign_key: true
+      t.boolean    :active, default: true
 
       t.timestamps null: false
     end
