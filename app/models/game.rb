@@ -10,4 +10,17 @@ class Game < ActiveRecord::Base
       errors.add(:player, "has an active game")
     end
   end
+
+  def continue
+    # check for level +1
+    # select situation
+  end
+
+  def end_game
+    update_attribute(:active, false)
+  end
+
+  def next_level
+    Level.where(position: self.level.position + 1).first
+  end
 end

@@ -18,7 +18,25 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "becomes inactive" do
-    it "when player health <= 0"
+  describe "#continue" do
+    it "selects and applies situation from the next level"
+  end
+
+  describe "#end_game" do
+    let(:game) { create(:game) }
+
+    it "deactivates the game" do
+      expect{ game.end_game }.to change{ game.active }.from(true).to(false)
+    end
+  end
+
+  describe ".next_level" do
+    let!(:level1) { create(:level, position: 1) }
+    let!(:level2) { create(:level, position: 2) }
+    let!(:game)   { create(:game, level: level1) }
+
+    it "returns the next level" do
+      expect(game.next_level).to eq(level2)
+    end
   end
 end
