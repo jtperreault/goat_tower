@@ -4,6 +4,7 @@ class CreateGames < ActiveRecord::Migration
       t.references :player, index: true, foreign_key: true
       t.references :level,  index: true, foreign_key: true
       t.boolean    :active, default: true
+      t.integer    :player_health, default: 100
 
       t.timestamps null: false
     end

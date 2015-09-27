@@ -16,10 +16,26 @@ RSpec.describe Game, type: :model do
     it "with more than 1 active game per player" do
       expect(build(:game, player: player)).to be_invalid
     end
+
+    it "without player health" do
+      expect(build(:game, player_health: nil)).to be_invalid
+    end
   end
 
   describe "#continue" do
-    it "selects and applies situation from the next level"
+    let(:player)    { create(:player) }
+    let(:game)      { create(:game, player: player, level: level) }
+    let(:level)     { create(:level, position: 1) }
+    let(:level2)    { create(:level, position: 2) }
+    let(:situation) { create(:situation, level: level) }
+
+    it "moves the game forward a level" do
+      expect{ game.continue }.to change{ game.level }.from(level).to(level2)
+    end
+
+    it "applies health change to the user" do
+      expect{ game.continue }.to change{ game.player_health }.by(situation.health_change)
+    end
   end
 
   describe "#end_game" do

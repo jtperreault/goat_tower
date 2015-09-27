@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20150824003505) do
   create_table "games", force: :cascade do |t|
     t.integer  "player_id"
     t.integer  "level_id"
-    t.boolean  "active",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "active",        default: true
+    t.integer  "player_health", default: 100
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "games", ["level_id"], name: "index_games_on_level_id", using: :btree

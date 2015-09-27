@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   belongs_to :player
   belongs_to :level
 
-  validates_presence_of :player, :level
+  validates :player, :level, :player_health, presence: true
   validate :player_cannot_have_multiple_games_active
 
   def player_cannot_have_multiple_games_active
@@ -12,8 +12,10 @@ class Game < ActiveRecord::Base
   end
 
   def continue
-    # check for level +1
-    # select situation
+    # select next level
+    # select situation from level
+    # apply situation to game
+    # save
   end
 
   def end_game
