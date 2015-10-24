@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   belongs_to :level
 
   validates :player, :level, :player_health, presence: true
-  validate :player_cannot_have_multiple_games_active
+  validate  :player_cannot_have_multiple_games_active
 
   def player_cannot_have_multiple_games_active
     if Game.where(player: self.player).where(active: true).any?

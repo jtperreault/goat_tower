@@ -36,6 +36,8 @@ RSpec.describe Game, type: :model do
     it "applies health change to the user" do
       expect{ game.continue }.to change{ game.player_health }.by(situation.health_change)
     end
+
+    it "ends game if player health <= 0"
   end
 
   describe "#end_game" do
