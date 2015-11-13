@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   include PlayerIdentifier
 
   def create
-    render json: Game.create(player: player)
+    render json: Game.create(player: player), status: 201
   end
 
   private

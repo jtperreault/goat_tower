@@ -22,6 +22,17 @@ RSpec.describe Game, type: :model do
     end
   end
 
+  describe "new game" do
+    let(:player)    { create(:player) }
+    let(:level)     { create(:level, position: 0) }
+    let(:game)      { build(:game, player: player) }
+
+    it "starts at level 0" do
+      game.save
+      expect(game.level).to eq(level)
+    end
+  end
+
   describe "#continue" do
     let(:player)    { create(:player) }
     let(:game)      { create(:game, player: player, level: level) }
