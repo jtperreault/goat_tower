@@ -24,7 +24,7 @@ RSpec.describe Game, type: :model do
 
   describe "new game" do
     let(:player)    { create(:player) }
-    let(:level)     { create(:level, position: 0) }
+    let!(:level)     { create(:level, position: 0) }
     let(:game)      { build(:game, player: player) }
 
     it "starts at level 0" do
