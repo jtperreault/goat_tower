@@ -35,7 +35,7 @@ RSpec.describe Game, type: :model do
 
   describe "#continue" do
     let(:player)    { create(:player) }
-    let(:game)      { create(:game, player: player, level: level) }
+    let(:game)      { create(:game, player: player) }
     let(:level)     { create(:level, position: 1) }
     let(:level2)    { create(:level, position: 2) }
     let(:situation) { create(:situation, level: level) }
