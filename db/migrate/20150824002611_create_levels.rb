@@ -1,7 +1,7 @@
 class CreateLevels < ActiveRecord::Migration
   def change
     create_table :levels do |t|
-      t.integer :position
+      t.integer :position, default: 0
       t.string  :description
 
       t.timestamps null: false

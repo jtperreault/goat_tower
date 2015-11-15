@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 20150824003505) do
   add_index "games", ["player_id"], name: "index_games_on_player_id", using: :btree
 
   create_table "levels", force: :cascade do |t|
-    t.integer  "position"
+    t.integer  "position",    default: 0
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "players", force: :cascade do |t|
