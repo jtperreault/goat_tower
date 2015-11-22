@@ -4,7 +4,6 @@ RSpec.describe 'Game creation', type: :request do
   context 'with valid data' do
     it 'creates a game' do
       post '/games', { player: { handle: 'jtperreault' } }
-      puts response.body
       expect(response.status).to eq(201)
     end
   end
