@@ -5,14 +5,14 @@ class Game < ActiveRecord::Base
   before_create :begin
 
   validates :player, :level, :player_health, presence: true
-  validate  :player_cannot_have_multiple_games_active
+  validate  :player_cannot_have_multiple_games_active, on: :create
 
   def continue
+    current_level = next_level
     # game advances to next level
-    self.level = next_level
+    self.level = current_level
     save!
-    # select next level
-    # select situation from level
+    situation = current_level.get_situation
     # apply situation to game
     # save
   end
@@ -22,7 +22,7 @@ class Game < ActiveRecord::Base
   end
 
   def next_level
-    Level.where(position: self.level.position + 1).first
+    Level.find_by_position(self.level.position + 1)
   end
 
   private
