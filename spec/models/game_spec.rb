@@ -5,6 +5,10 @@ RSpec.describe Game, type: :model do
     let!(:player) { create(:player) }
     let!(:game)   { create(:game, player: player) }
 
+    it "with more than 1 active game per player" do
+      expect(build(:game, player: player)).to be_invalid
+    end
+
     it "without a player" do
       expect(build(:game, player: nil)).to be_invalid
     end
@@ -13,27 +17,23 @@ RSpec.describe Game, type: :model do
       expect(build(:game, level: nil)).to be_invalid
     end
 
-    it "with more than 1 active game per player" do
-      expect(build(:game, player: player)).to be_invalid
-    end
-
     it "without player health" do
       expect(build(:game, player_health: nil)).to be_invalid
     end
   end
 
-  describe "new game" do
+  describe "New games" do
     let(:player)    { create(:player) }
     let!(:level)     { create(:level, position: 0) }
     let(:game)      { build(:game, player: player) }
 
-    it "starts at level 0" do
+    it "start at level 0" do
       game.save
       expect(game.level).to eq(level)
     end
   end
 
-  describe "#continue" do
+  describe ".continue" do
     let!(:player)      { create(:player) }
     let!(:level_0)     { create(:level, position: 0) }
     let!(:level_1)     { create(:level, position: 1) }
@@ -48,14 +48,15 @@ RSpec.describe Game, type: :model do
       expect{ game.continue }.to change{ game.player_health }.by(situation_1.health_change)
     end
 
-    it "ends game if player health <= 0"
-  end
+    context "ends the game" do
+      it "if player health <= 0" do
+        game.player_health = 10
+        expect{ game.continue }.to change{ game.active }.from(true).to(false)
+      end
 
-  describe "#end_game" do
-    let(:game) { create(:game) }
-
-    it "deactivates the game" do
-      expect{ game.end_game }.to change{ game.active }.from(true).to(false)
+      it "if there is no next level" do
+        expect{ game.continue }.to change{ game.active }.from(true).to(false)
+      end
     end
   end
 

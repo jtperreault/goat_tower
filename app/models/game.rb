@@ -9,16 +9,12 @@ class Game < ActiveRecord::Base
 
   def continue
     current_level = next_level
-    # game advances to next level
-    self.level = current_level
+    situation     = current_level.get_situation
+    update_attribute(:level, current_level)
+    self.player_health = self.player_health + situation.health_change
     save!
-    situation = current_level.get_situation
-    # apply situation to game
-    # save
-  end
-
-  def end_game
-    update_attribute(:active, false)
+    dead_player_check
+    last_level_check
   end
 
   def next_level
@@ -27,8 +23,24 @@ class Game < ActiveRecord::Base
 
   private
 
+  def dead_player_check
+    if self.player_health <= 0
+      end_game
+    end
+  end
+
+  def last_level_check
+    if !next_level
+      end_game
+    end
+  end
+
   def begin
     self.level = Level.find_by_position(0)
+  end
+
+  def end_game
+    update_attribute(:active, false)
   end
 
   def player_cannot_have_multiple_games_active
@@ -36,6 +48,4 @@ class Game < ActiveRecord::Base
       errors.add(:player, "has an active game")
     end
   end
-
-
 end
