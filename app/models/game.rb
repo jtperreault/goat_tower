@@ -1,6 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :player
   belongs_to :level
+  belongs_to :situation
 
   before_create :begin
 
@@ -12,6 +13,7 @@ class Game < ActiveRecord::Base
     situation     = current_level.get_situation
     update_attribute(:level, current_level)
     self.player_health = self.player_health + situation.health_change
+    self.situation = situation
     save!
     dead_player_check
     last_level_check
@@ -19,6 +21,10 @@ class Game < ActiveRecord::Base
 
   def next_level
     Level.find_by_position(self.level.position + 1)
+  end
+
+  def message
+    self.situation.description
   end
 
   private

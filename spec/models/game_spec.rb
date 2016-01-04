@@ -22,10 +22,10 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "New games" do
-    let(:player)    { create(:player) }
-    let!(:level)     { create(:level, position: 0) }
-    let(:game)      { build(:game, player: player) }
+  describe "new games" do
+    let(:player)  { create(:player) }
+    let!(:level)  { create(:level, position: 0) }
+    let(:game)    { build(:game, player: player) }
 
     it "start at level 0" do
       game.save
@@ -46,6 +46,11 @@ RSpec.describe Game, type: :model do
 
     it "applies health change to the user" do
       expect{ game.continue }.to change{ game.player_health }.by(situation_1.health_change)
+    end
+
+    it "stores the last situation applied" do
+      game.continue
+      expect(game.situation).to eq(situation_1)
     end
 
     context "ends the game" do
@@ -69,4 +74,22 @@ RSpec.describe Game, type: :model do
       expect(game.next_level).to eq(level_1)
     end
   end
+
+  describe ".message" do
+    let!(:level_0)     { create(:level, position: 0) }
+    let!(:level_1)     { create(:level, position: 1) }
+    let!(:situation_1) { create(:situation, level: level_1, description: 'you get kicked in the face by a goat') }
+    let!(:game)        { create(:game) }
+
+    before { game.continue }
+
+    it "returns a string" do
+      expect(game.message).to be_a(String)
+    end
+
+    it "matches the situation desecription" do
+      expect(game.message).to eq(situation_1.description)
+    end
+  end
+
 end
