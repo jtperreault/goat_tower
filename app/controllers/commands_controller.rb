@@ -1,7 +1,7 @@
 class CommandsController < ApplicationController
   include PlayerIdentifier
 
-  before_action :check_if_player_exists, only: [:index]
+  before_action :new_player_response, only: [:index]
 
   def index
     render json: player.commands
@@ -9,7 +9,7 @@ class CommandsController < ApplicationController
 
   private
 
-  def check_if_player_exists
+  def new_player_response
     unless player
       render json: ['start']
     end
