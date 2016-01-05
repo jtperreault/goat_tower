@@ -6,6 +6,7 @@ module PlayerIdentifier
   end
 
   private
+
   def player_params
     params.require(:player).permit(:handle)
   end
