@@ -8,6 +8,22 @@ RSpec.describe Player, type: :model do
   end
 
   describe "commands" do
-    it "returns commands"
+    context 'with active game' do
+      let(:player) { create(:player) }
+
+      it "returns commands" do
+        expect(player.commands).to include('start')
+      end
+    end
+
+    context 'with no active game' do
+      let(:player) { create(:player) }
+      let!(:game)  { create(:game, player: player) }
+
+      it "returns commands" do
+        expect(player.commands).to include('continue')
+      end
+    end
   end
+
 end
