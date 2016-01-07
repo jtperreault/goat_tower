@@ -9,7 +9,6 @@ RSpec.describe 'Commands request', type: :request do
     end
 
     it 'gives a usable errror message' do
-      puts response.body
       expect(response.body).to include('must include player handle')
     end
   end
