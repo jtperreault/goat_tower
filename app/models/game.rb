@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   belongs_to :level
   belongs_to :situation
 
-  before_create :begin
+  before_create :set_starting_level
 
   validates :player, :level, :player_health, presence: true
   validate  :player_cannot_have_multiple_games_active, on: :create
@@ -41,7 +41,7 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def begin
+  def set_starting_level
     self.level = Level.find_by_position(0)
   end
 
