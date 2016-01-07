@@ -1,0 +1,8 @@
+active_game:
+  player: active_player
+  level: one
+  player_health: 100
+inactive_game:
+  player: inactive_player
+  active: false
+  player_health: -10

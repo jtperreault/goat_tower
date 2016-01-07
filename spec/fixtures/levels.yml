@@ -1,0 +1,18 @@
+one:
+  position: 0
+  description: You are standing outside the Goat Tower.
+two:
+  position: 1
+  description: Ground floor inside the Goat Tower.
+three:
+  position: 2
+  description: First floor of the Goat Tower.
+four:
+  position: 3
+  description: Second floor of the Goat Tower.
+five:
+  position: 4
+  description: Third floor of the Goat Tower.
+last:
+  position: 5
+  description: Final floor!
