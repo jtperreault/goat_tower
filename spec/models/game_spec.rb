@@ -45,7 +45,7 @@ RSpec.describe Game, type: :model do
       end
 
       it "if there is no next level" do
-        game.level = levels(:last)
+        game.level = levels(:penultimate)
         expect{ game.continue }.to change{ game.active }.from(true).to(false)
       end
     end
@@ -70,6 +70,9 @@ RSpec.describe Game, type: :model do
     it "matches the situation desecription" do
       expect(game.message).to eq(situations(:initial_kick).description)
     end
+
+    it "sends winning message"
+    it "sends losing message"
   end
 
 end
