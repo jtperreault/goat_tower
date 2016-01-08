@@ -16,9 +16,20 @@ RSpec.describe 'Game requests', type: :request do
       end
     end
 
-    context 'with invalid data'
-    context 'with an active game'
-    context 'without a identifiable player'
+    context 'with invalid data' do
+      it 'returns failing status'
+      it 'returns contextual error message'
+    end
+
+    context 'with an active game' do
+      it 'returns failing status'
+      it 'returns contextual errors message'
+    end
+
+    context 'without a identifiable player' do
+      it 'returns failing status'
+      it 'returns contextual error message'
+    end
   end
 
   describe 'updating a game' do
