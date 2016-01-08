@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Game requests', type: :request do
-  context 'creating a game' do
+  describe 'creating a game' do
     context 'with valid data' do
-      it 'creates a game' do
-        post '/games', { player: { handle: 'jtperreault' } }
+      let(:player) { players(:james) }
+
+      before { post '/games', { player: { handle: player.handle } } }
+
+      it 'responds with correct status' do
         expect(response.status).to eq(201)
+      end
+
+      it 'returns a game message' do
+        expect(json['game']['message']).to eq('Game started!')
       end
     end
 
@@ -14,7 +21,7 @@ RSpec.describe 'Game requests', type: :request do
     context 'without a identifiable player'
   end
 
-  context 'updating a game' do
+  describe 'updating a game' do
     it 'continues'
     it 'ends'
     it 'replies with correct errors'
