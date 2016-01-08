@@ -10,7 +10,7 @@ three:
 four:
   position: 3
   description: Second floor of the Goat Tower.
-five:
+penultimate:
   position: 4
   description: Third floor of the Goat Tower.
 last:
