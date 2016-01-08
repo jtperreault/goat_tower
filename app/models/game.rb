@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
   validates :player, :level, :player_health, presence: true
   validate  :player_cannot_have_multiple_games_active, on: :create
 
-  def continue
+  def continue # TODO cleanup this method, it looks like garbage
     current_level = next_level
     situation     = current_level.get_situation
     update_attribute(:level, current_level)
