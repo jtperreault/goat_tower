@@ -42,7 +42,9 @@ class Game < ActiveRecord::Base
   end
 
   def set_starting_level
-    self.level = Level.find_by_position(0)
+    level = Level.find_by_position(0)
+    self.level = level
+    self.situation = level.get_situation
   end
 
   def end_game

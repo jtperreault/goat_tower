@@ -12,7 +12,7 @@ RSpec.describe 'Game requests', type: :request do
       end
 
       it 'returns a game message' do
-        expect(json['game']['message']).to eq('Game started!')
+        expect(json['game']['message']).to eq('You enter the Goat Tower.')
       end
     end
 

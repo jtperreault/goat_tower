@@ -6,3 +6,7 @@ final_kick:
   level: last
   description: kicked by the angriest goat.
   health_change: -30
+entry:
+  level: one
+  description: You enter the Goat Tower.
+  health_change: 0
