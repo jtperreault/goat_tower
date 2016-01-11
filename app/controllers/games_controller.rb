@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     if @game.save
       render json: @game, status: 201
     else
-      render json: { error: { message: 'Unable to create game.' } }, status: 500
+      render json: { errors: @game.errors }, status: 400
     end
   end
 

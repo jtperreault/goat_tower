@@ -17,12 +17,22 @@ RSpec.describe 'Game requests', type: :request do
     end
 
     context 'with invalid data' do
-      it 'returns failing status'
-      it 'returns contextual error message'
+      before { post '/games', { player: { handle: 'nonexistant_player' } } }
+
+      it 'returns failing status' do
+        expect(response.status).to eq(400)
+      end
+
+      it 'returns an error message' do
+        expect(json['errors'].length).to eq(1)
+      end
     end
 
     context 'with an active game' do
-      it 'returns failing status'
+      it 'returns failing status' do
+
+      end
+
       it 'returns contextual errors message'
     end
 
