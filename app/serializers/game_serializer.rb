@@ -1,3 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :level, :active, :player_health, :situation, :message
+  attributes :id, :active, :player_health, :message
+
+  has_one :level, :situation
 end

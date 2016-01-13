@@ -1,3 +1,3 @@
 class LevelSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :position, :description
 end
