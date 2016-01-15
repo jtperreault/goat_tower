@@ -8,43 +8,50 @@ class Game < ActiveRecord::Base
   validates :player, :level, :player_health, presence: true
   validate  :player_cannot_have_multiple_games_active, on: :create
 
-  def continue # TODO cleanup this method, it looks like garbage
-    current_level = next_level
-    situation     = current_level.get_situation
-    update_attribute(:level, current_level)
-    self.player_health = self.player_health + situation.health_change
-    self.situation = situation
-    save!
-    dead_player_check
+  def continue
+    apply_situation(next_level.get_situation)
+    update_attribute(:level, next_level)
     last_level_check
   end
 
   def next_level
-    Level.find_by_position(self.level.position + 1)
+    Level.find_by_position(level.position + 1)
   end
 
-  def message
-    self.situation.description
+  def apply_situation(situation)
+    self.situation = situation
+    self.player_health = player_health + situation.health_change
+    save!
+    set_message(situation.description)
+    dead_player_check
   end
 
   private
 
   def dead_player_check
-    if self.player_health <= 0
+    if player_health <= 0
+      set_message(message << " You have died.")
       end_game
     end
   end
 
+  def set_message(message)
+    update_attribute(:message, message)
+  end
+
   def last_level_check
-    if !next_level
+    if !next_level && player_health > 0
+      set_message(message.insert(0, "You have ascended to the top of the Goat Tower. ") << " You win!")
       end_game
     end
   end
 
   def set_starting_level
     level = Level.find_by_position(0)
+    situation = level.get_situation
     self.level = level
-    self.situation = level.get_situation
+    self.situation = situation
+    self.message = situation.description
   end
 
   def end_game
