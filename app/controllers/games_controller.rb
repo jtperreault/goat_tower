@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   include PlayerIdentifier
 
-  before_action :set_game, :confirm_game_active, except: [:create]
+  before_action :set_game, :confirm_game_active, :confirm_game_player, except: [:create]
 
   def create
     @game = Game.new(player: player)
@@ -24,11 +24,14 @@ class GamesController < ApplicationController
     params.require(:game).permit(:id, :player)
   end
 
-  def game_owner
-  end
-
   def set_game
     @game = Game.find(params[:id])
+  end
+
+  def confirm_game_player
+    unless @game.player == player
+      render json: { errors: { game: ['is being played by someone else'] } }, status: 400
+    end
   end
 
   def confirm_game_active
