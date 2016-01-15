@@ -52,7 +52,7 @@ RSpec.describe Game, type: :model do
   end
 
   describe ".next_level" do
-    let!(:game)    { games(:active_game) }
+    let(:game)    { games(:active_game) }
 
     it "returns the next level" do
       expect(game.next_level).to eq(levels(:two))
@@ -60,8 +60,15 @@ RSpec.describe Game, type: :model do
   end
 
   describe ".message" do
-    let!(:game)        { games(:active_game) }
-    before { game.continue }
+    let(:game)         { games(:active_game) }
+    let(:winning_game) { games(:winning_game) }
+    let(:losing_game)  { games(:losing_game) }
+
+    before do
+      game.continue
+      winning_game.continue
+      losing_game.continue
+    end
 
     it "returns a string" do
       expect(game.message).to be_a(String)
@@ -71,8 +78,13 @@ RSpec.describe Game, type: :model do
       expect(game.message).to eq(situations(:initial_kick).description)
     end
 
-    it "sends winning message"
-    it "sends losing message"
+    it "sends winning message" do
+      expect(winning_game.message).to include('You win!')
+    end
+
+    it "sends losing message" do
+      expect(losing_game.message).to include('You have died.')
+    end
   end
 
 end
