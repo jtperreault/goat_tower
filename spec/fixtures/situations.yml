@@ -4,7 +4,7 @@ initial_kick:
   health_change: -10
 final_kick:
   level: last
-  description: kicked by the angriest goat.
+  description: You get kicked by the angriest goat.
   health_change: -30
 entry:
   level: one

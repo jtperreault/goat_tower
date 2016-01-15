@@ -6,3 +6,11 @@ inactive_game:
   player: inactive_player
   active: false
   player_health: -10
+winning_game:
+  player: winning_player
+  level: penultimate
+  player_health: 100
+losing_game:
+  player: losing_player
+  level: one
+  player_health: 1

@@ -2,5 +2,9 @@ james:
   handle: jtperreault
 active_player:
   handle: marko
+winning_player:
+  handle: robert
+losing_player:
+  handle: cantwin
 inactive_player:
   handle: danny
