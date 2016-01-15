@@ -57,6 +57,18 @@ RSpec.describe 'Game requests', type: :request do
       end
     end
 
+    context 'played by differnt player' do
+      before { patch "/games/#{game.id}", { player: { handle: players(:james).handle } } }
+
+      it 'returns failing status' do
+        expect(response.status).to eq(400)
+      end
+
+      it 'returns an error' do
+        expect(json['errors'].length).to eq(1)
+      end
+    end
+
     context 'with valid data' do
       before { patch "/games/#{game.id}", { player: { handle: players(:active_player).handle } } }
 
@@ -73,9 +85,5 @@ RSpec.describe 'Game requests', type: :request do
         expect(json['game']['level']['position']).to eq(1)
       end
     end
-
-    it 'continues'
-    it 'ends'
-    it 'replies with correct errors'
   end
 end
