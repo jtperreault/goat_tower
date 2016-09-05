@@ -12,7 +12,7 @@ RSpec.describe 'Game requests', type: :request do
       end
 
       it 'returns a game message' do
-        expect(json['game']['message']).to eq('You enter the Goat Tower.')
+        expect(json['data']['attributes']['message']).to eq('You enter the Goat Tower.')
       end
     end
 
@@ -77,12 +77,12 @@ RSpec.describe 'Game requests', type: :request do
       end
 
       it 'returns a game message' do
-        expect(json['game']['message']).to be_present
+        expect(json['data']['attributes']['message']).to be_present
       end
 
       it 'returns (next) game level' do
-        expect(json['game']['level']).to be_present
-        expect(json['game']['level']['position']).to eq(1)
+        expect(json['data']['relationships']['level']).to be_present
+        expect(json['data']['attributes']['level-position']).to eq(1)
       end
     end
   end

@@ -8,6 +8,9 @@ class Game < ActiveRecord::Base
   validates :player, :level, :player_health, presence: true
   validate  :player_cannot_have_multiple_games_active, on: :create
 
+  delegate :description, to: :level, prefix: true
+  delegate :position, to: :level, prefix: true
+
   def continue
     apply_situation(next_level.get_situation)
     update_attribute(:level, next_level)
