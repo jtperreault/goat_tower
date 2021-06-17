@@ -14,7 +14,7 @@ RSpec.describe 'Commands request', type: :request do
   end
 
   context 'when player does not exist' do
-    before { get '/commands', { player: { handle: 'jtperreault' } } }
+    before { get '/commands', params: { player: { handle: 'jtperreault' } } }
 
     it 'returns success status' do
       expect(response.status).to eq(200)
@@ -27,7 +27,7 @@ RSpec.describe 'Commands request', type: :request do
 
   context 'when player exists but has no active game' do
     let(:player) { players(:james) }
-    before { get '/commands', { player: { handle: player.handle } } }
+    before { get '/commands', params: { player: { handle: player.handle } } }
 
     it 'returns success status' do
       expect(response.status).to eq(200)

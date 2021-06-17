@@ -5,7 +5,7 @@ RSpec.describe 'Game requests', type: :request do
     context 'with valid data' do
       let(:player) { players(:james) }
 
-      before { post '/games', { player: { handle: player.handle } } }
+      before { post '/games', params: { player: { handle: player.handle } } }
 
       it 'responds with correct status' do
         expect(response.status).to eq(201)
@@ -17,7 +17,7 @@ RSpec.describe 'Game requests', type: :request do
     end
 
     context 'without a identifiable player' do
-      before { post '/games', { player: { handle: 'nonexistant_player' } } }
+      before { post '/games', params: { player: { handle: 'nonexistant_player' } } }
 
       it 'returns failing status' do
         expect(response.status).to eq(400)
@@ -29,7 +29,7 @@ RSpec.describe 'Game requests', type: :request do
     end
 
     context 'with an active game' do
-      before { post '/games', { player: { handle: players(:active_player).handle } } }
+      before { post '/games', params: { player: { handle: players(:active_player).handle } } }
 
       it 'returns failing status' do
         expect(response.status).to eq(400)
@@ -46,7 +46,7 @@ RSpec.describe 'Game requests', type: :request do
     let(:inactive_game) { games(:inactive_game) }
 
     context 'that is inactive' do
-      before { patch "/games/#{inactive_game.id}", { player: { handle: players(:active_player).handle } } }
+      before { patch "/games/#{inactive_game.id}", params: { player: { handle: players(:active_player).handle } } }
 
       it 'returns failing status' do
         expect(response.status).to eq(400)
@@ -57,8 +57,8 @@ RSpec.describe 'Game requests', type: :request do
       end
     end
 
-    context 'played by differnt player' do
-      before { patch "/games/#{game.id}", { player: { handle: players(:james).handle } } }
+    context 'played by different player' do
+      before { patch "/games/#{game.id}", params: { player: { handle: players(:james).handle } } }
 
       it 'returns failing status' do
         expect(response.status).to eq(400)
@@ -70,7 +70,7 @@ RSpec.describe 'Game requests', type: :request do
     end
 
     context 'with valid data' do
-      before { patch "/games/#{game.id}", { player: { handle: players(:active_player).handle } } }
+      before { patch "/games/#{game.id}", params: { player: { handle: players(:active_player).handle } } }
 
       it 'returns success status' do
         expect(response.status).to eq(200)
