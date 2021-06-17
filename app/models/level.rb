@@ -5,6 +5,6 @@ class Level < ApplicationRecord
   has_many :situations
 
   def get_situation
-    situations.order("RANDOM()").first
+    Situation.find(situations.pluck(:id).sample)
   end
 end
