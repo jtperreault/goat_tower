@@ -1,4 +1,4 @@
-class Level < ActiveRecord::Base
+class Level < ApplicationRecord
   validates_presence_of :position
   validates_uniqueness_of :position
 
