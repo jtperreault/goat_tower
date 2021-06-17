@@ -9,6 +9,7 @@ gem 'pg'
 gem 'spring', :group => :development
 
 group :development, :test do
+  gem 'bootsnap'
   gem 'byebug'
   gem 'rspec-rails'
 end
