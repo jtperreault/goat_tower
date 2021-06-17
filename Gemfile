@@ -6,10 +6,14 @@ gem 'puma'
 
 gem 'active_model_serializers'
 gem 'pg'
-gem 'spring', :group => :development
+
+group :development do
+  gem 'rubocop'
+end
 
 group :development, :test do
   gem 'bootsnap'
   gem 'byebug'
+  gem 'listen'
   gem 'rspec-rails'
 end
