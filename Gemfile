@@ -1,11 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4'
-gem 'rails-api'
+gem 'rails', '~> 5.0.0'
+
+gem 'puma'
+
 gem 'active_model_serializers'
 gem 'pg'
 gem 'spring', :group => :development
 
 group :development, :test do
+  gem 'byebug'
   gem 'rspec-rails'
 end
